@@ -8,8 +8,7 @@ ARG USER_ID=1000
 ARG GROUP_ID=1000
 
 # Create a group and a user with specific UID and GID
-RUN groupadd -g ${GROUP_ID} simon \
-    && useradd -u ${USER_ID} -g ${GROUP_ID} -ms /bin/bash simon
+RUN useradd -u ${USER_ID} -g ${GROUP_ID} -ms /bin/bash simon
 USER simon
 
 WORKDIR /home/simon

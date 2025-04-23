@@ -1,4 +1,8 @@
 #!/bin/bash
 
 docker image rm ghcr.io/s1monb/nvim-dev:latest
-docker run -it --rm -h dev -u $USER -v ./:/home/simon/dev ghcr.io/s1monb/nvim-dev:latest
+docker run -it --rm \
+    -e HOST_UID=$(id -u) \
+    -e HOST_GID=$(id -g) \
+    -v ./:/home/simon/dev \
+    ghcr.io/s1monb/nvim-dev:latest
