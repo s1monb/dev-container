@@ -2,7 +2,7 @@ FROM ubuntu:25.04
 
 # Install dependencies
 RUN apt-get update && \
-    apt-get install -y git curl tmux gcc unzip make ripgrep gosu
+    apt-get install -y git curl tmux gcc unzip make ripgrep
 
 # Create a group and a user with specific UID and GID
 RUN useradd -g 1000 -ms /bin/bash simon
