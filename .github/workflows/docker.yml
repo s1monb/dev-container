@@ -1,4 +1,5 @@
 name: Build Neovim Docker Image
+
 permissions:
   contents: read
   packages: write
@@ -28,12 +29,11 @@ jobs:
         mkdir -p ~/.local/bin
         ln -s ~/.nvim/bin/nvim ~/.local/bin/nvim
         echo "$HOME/.local/bin" >> $GITHUB_PATH
+      
+    - name: Copy config-files (XDG_CONFIG_HOME must be set to ~/.dotfiles)
+      run: |
         cp -r ./dotfiles ~/.dotfiles
 
-    - name: Is Neovim installed?
-      run: |
-        ls -R ~/.dotfiles
-    
     - name: Initialize lazy.nvim
       run: |
         nvim --headless -u ~/.dotfiles/nvim/init.lua "+qa"

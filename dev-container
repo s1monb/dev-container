@@ -1,3 +1,3 @@
 #!/bin/bash
 
-docker run -it --rm -h dev -v ./:/home/simon/dev dev-container:latest
+docker run -it --rm -h dev -u $USER --mount type=bind,source=./,target=/home/simon/dev,bind-propagation=shared ghcr.io/s1monb/nvim-dev:latest

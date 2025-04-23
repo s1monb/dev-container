@@ -4,12 +4,12 @@ FROM ubuntu:25.04
 RUN apt-get update && \
     apt-get install -y git curl tmux gcc unzip make ripgrep
 
+ARG USER_ID=1000
+ARG GROUP_ID=1000
 
 # Create a group and a user with specific UID and GID
-RUN groupadd simon \
-    && useradd -ms /bin/bash -g simon simon \
-    && mkdir -p /app \
-    && chown simon:simon /app
+RUN groupadd -g ${GROUP_ID} simon \
+    && useradd -u ${USER_ID} -g ${GROUP_ID} -ms /bin/bash simon
 USER simon
 
 WORKDIR /home/simon
