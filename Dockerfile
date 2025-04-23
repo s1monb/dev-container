@@ -2,7 +2,7 @@ FROM ubuntu:25.04
 
 # Install dependencies
 RUN apt-get update && \
-    apt-get install -y git curl tmux gcc unzip make ripgrep
+    apt-get install -y git curl tmux gcc unzip make ripgrep gosu
 
 ARG USER_ID=1000
 ARG GROUP_ID=1000

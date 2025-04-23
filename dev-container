@@ -1,3 +1,4 @@
 #!/bin/bash
 
-docker run -it --rm -h dev -u $USER --mount type=bind,source=./,target=/home/simon/dev ghcr.io/s1monb/nvim-dev:latest
+docker image rm ghcr.io/s1monb/nvim-dev:latest
+docker run -it --rm -h dev -u $USER -v ./:/home/simon/dev ghcr.io/s1monb/nvim-dev:latest
