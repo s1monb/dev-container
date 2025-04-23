@@ -54,7 +54,7 @@ jobs:
         password: ${{ secrets.GITHUB_TOKEN }}
         
     - name: Build Docker image
-      run: docker build --build-arg USER_ID=$(id -u) --build-arg GROUP_ID=$(id -g) -t ghcr.io/${{ github.repository_owner }}/nvim-dev:latest .
+      run: docker build -t ghcr.io/${{ github.repository_owner }}/nvim-dev:latest .
   
     - name: Push Docker image
       run: docker push ghcr.io/${{ github.repository_owner }}/nvim-dev:latest
