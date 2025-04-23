@@ -3,9 +3,9 @@
 set -eu
 
 # Give full access to the volume mount (folder with .config)
-if [ -d "$USER_HOME/.config" ]; then
+if [ -d "$HOME/dev" ]; then
   echo "Changing permissions of mounted volume folder to be world-writable"
-  chmod -R 777 "$USER_HOME/.config"
+  chmod -R 777 "$HOME/dev"
 fi
 
 # Switch to simon user and run the main command
