@@ -2,14 +2,11 @@
 
 set -eu
 
-# Give full access to the volume mount (folder with .config)
-if [ -d "$HOME/dev" ]; then
-  echo "Changing permissions of mounted volume folder to be world-writable"
-  chmod -R 777 "$HOME/dev"
-fi
+chown -R simon:simon /home/simon/dev
 
 # Switch to simon user and run the main command
-exec gosu "$USERNAME" "$@"
+exec gosu simon "$@"
+
 export XDG_CONFIG_HOME="/home/simon/.dotfiles"
 
 cd dev/ && tmux new-session
