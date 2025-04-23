@@ -29,8 +29,8 @@ ENV PATH="/home/simon/.local/bin:$PATH"
 
 RUN mkdir -p ~/.dotfiles
 COPY --chown=simon:simon ./dotfiles /home/simon/.dotfiles
-COPY --chown=simon:simon ./nvim-data/share /home/simon/.local/share
-COPY --chown=simon:simon ./nvim-data/state /home/simon/.local/state
+COPY --chown=simon:simon .nvim-data/share /home/simon/.local/share
+COPY --chown=simon:simon .nvim-data/state /home/simon/.local/state
 
 RUN echo 'export XDG_CONFIG_HOME="/home/simon/.dotfiles"' >> ~/.bashrc
 RUN echo 'export PATH="$PATH:/opt/nvim-linux-x86_64/bin"' >> ~/.bashrc
