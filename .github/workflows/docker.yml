@@ -35,16 +35,6 @@ jobs:
       run: |
         nvim --headless -u ~/.dotfiles/nvim/init.lua "+qa"
 
-      
-    - name: Check if lazy.nvim was installed
-      run: |
-        ls -la ~/.local/share/nvim/lazy || echo "lazy.nvim not found"
-
-
-
-    - name: Bootstrap kickstart.nvim and install plugins
-      run: |
-        nvim --headless -l scripts/lazy-install.lua
 
     - name: Copy config and plugin data to Docker context
       run: |
