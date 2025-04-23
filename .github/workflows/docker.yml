@@ -1,0 +1,58 @@
+name: Build Neovim Docker Image
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+env:
+  XDG_CONFIG_HOME: /home/runner/.dotfiles
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Install Neovim
+      run: |
+        curl -Lo nvim.tar.gz https://github.com/neovim/neovim-releases/releases/download/v0.10.1/nvim-linux64.tar.gz
+        tar xzf nvim.tar.gz
+        mv nvim-linux64 ~/.nvim
+        mkdir -p ~/.local/bin
+        ln -s ~/.nvim/bin/nvim ~/.local/bin/nvim
+        echo "$HOME/.local/bin" >> $GITHUB_PATH
+        cp -r ./dotfiles ~/.dotfiles
+
+    - name: Is Neovim installed?
+      run: |
+        ls -R ~/.dotfiles
+    
+    - name: Initialize lazy.nvim
+      run: |
+        nvim --headless -u ~/.dotfiles/nvim/init.lua "+qa"
+
+      
+    - name: Check if lazy.nvim was installed
+      run: |
+        ls -la ~/.local/share/nvim/lazy || echo "lazy.nvim not found"
+
+
+
+    - name: Bootstrap kickstart.nvim and install plugins
+      run: |
+        nvim --headless -l scripts/lazy-install.lua
+
+    - name: Copy config and plugin data to Docker context
+      run: |
+        mkdir -p .nvim-data/share
+        mkdir -p .nvim-data/state
+        cp -r ~/.local/share/nvim .nvim-data/share
+        cp -r ~/.local/state/nvim .nvim-data/state
+
+    - name: Build Docker image
+      run: |
+        docker build -t neovim-offline:latest .
