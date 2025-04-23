@@ -2,20 +2,13 @@
 
 set -eu
 
-# Default to simon user
-USERNAME="simon"
-USER_HOME="/home/${USERNAME}"
-
-# If the volume is mounted and UID is different, fix it
-if [ -n "$HOST_UID" ] && [ -n "$HOST_GID" ]; then
-  echo "Updating UID/GID to match host: UID=$HOST_UID, GID=$HOST_GID"
-
-  groupmod -g "$HOST_GID" "$USERNAME"
-  usermod -u "$HOST_UID" -g "$HOST_GID" "$USERNAME"
-  chown -R "$USERNAME:$USERNAME" "$USER_HOME"
+# Give full access to the volume mount (folder with .config)
+if [ -d "$USER_HOME/.config" ]; then
+  echo "Changing permissions of mounted volume folder to be world-writable"
+  chmod -R 777 "$USER_HOME/.config"
 fi
 
-# Switch to simon and run
+# Switch to simon user and run the main command
 exec gosu "$USERNAME" "$@"
 export XDG_CONFIG_HOME="/home/simon/.dotfiles"
 
