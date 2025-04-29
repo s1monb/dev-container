@@ -7,4 +7,4 @@ set -q XDG_CONFIG_HOME || set XDG_CONFIG_HOME "$HOME/.dotfiles"
 export GOPATH="/go"
 export PATH="$GOPATH/bin:/usr/local/go/bin:$PATH"
 
-export PATH="$PATH:/opt/nvim/bin"
+export PATH="$PATH:/opt/nvim/bin:/home/linuxbrew/.linuxbrew/bin"

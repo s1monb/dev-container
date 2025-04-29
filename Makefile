@@ -2,29 +2,34 @@
 build:
 	@docker build --tag nvim-dev-base:latest .
 
-.PHONY: run
-run:
+.PHONY: start-dev
+start-dev:
 	@docker run -dit --name nvim-dev nvim-dev-base:latest
 
-.PHONY: init-nvim
-init-nvim:
-	@docker exec -it nvim-dev /scripts/init-nvim.sh
+.PHONY: run-init-script
+run-init-script:
+	@docker exec -it nvim-dev /scripts/initialize-tooling.sh
 
-.PHONY: shell
-shell:
-	@docker exec -it nvim-dev /scripts/entrypoint.sh
-
-.PHONY: start
-start: build run init-nvim
-
-.PHONY: commit
-commit:
+.PHONY: commit-dev
+commit-dev:
 	@docker commit nvim-dev nvim-dev-final:latest
+
+.PHONY: cleanup-dev
+cleanup-dev:
+	@docker rm -f nvim-dev
 
 .PHONY: run-final
 run-final:
 	@docker run -it --rm --network none --name nvim-dev-final nvim-dev-final:latest /scripts/entrypoint.sh
 
-.PHONY: destroy
-destroy:
+.PHONY: create-final
+create-final: build start-dev run-init-script commit-dev cleanup-dev run-final 
+
+.PHONY: shell
+shell:
+	@docker exec -it nvim-dev-final /scripts/entrypoint.sh
+
+.PHONY: cleanup
+cleanup:
 	@docker rm -f nvim-dev
+	@docker rm -f nvim-dev-final
