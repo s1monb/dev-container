@@ -1,6 +1,0 @@
-#!/bin/bash
-
-# docker image rm ghcr.io/s1monb/nvim-dev:latest
-docker run -d \
-    -v ./:/home/simon/dev \
-    ghcr.io/s1monb/nvim-dev:latest

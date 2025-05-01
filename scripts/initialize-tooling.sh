@@ -1,9 +1,7 @@
 #!/bin/fish
 
-cd /home/simon
-
-export PATH="$PATH:/home/linuxbrew/.linuxbrew/bin"
-
-brew bundle --file=/home/simon/.dotfiles/Brewfile
-
+# Install all nvim dependencies to ubuntu's home directory as root
 nvim --headless -c 'Lazy! sync' -c 'MasonInstall typescript-language-server' -c 'qa!'
+
+# Change ownership of the home directory to ubuntu (for the nvim dependencies)
+chown -R ubuntu:ubuntu /home/ubuntu

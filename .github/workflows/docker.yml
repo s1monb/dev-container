@@ -21,30 +21,12 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v3
 
-    - name: Install Neovim
+    - name: Create image
       run: |
-        curl -Lo nvim.tar.gz https://github.com/neovim/neovim-releases/releases/download/v0.10.1/nvim-linux64.tar.gz
-        tar xzf nvim.tar.gz
-        mv nvim-linux64 ~/.nvim
-        mkdir -p ~/.local/bin
-        ln -s ~/.nvim/bin/nvim ~/.local/bin/nvim
-        echo "$HOME/.local/bin" >> $GITHUB_PATH
-      
-    - name: Copy config-files (XDG_CONFIG_HOME must be set to ~/.dotfiles)
+        make create-final 
+    - name: Tag image
       run: |
-        cp -r ./dotfiles ~/.dotfiles
-
-    - name: Initialize lazy.nvim
-      run: |
-        nvim --headless -u ~/.dotfiles/nvim/init.lua "+qa"
-
-
-    - name: Copy config and plugin data to Docker context
-      run: |
-        mkdir -p .nvim-data/share
-        mkdir -p .nvim-data/state
-        cp -r ~/.local/share/nvim .nvim-data/share
-        cp -r ~/.local/state/nvim .nvim-data/state
+        docker image tag dc:latest ghcr.io/${{ github.repository_owner }}/dev:latest
 
     - name: Log in to GitHub Container Registry
       uses: docker/login-action@v2
@@ -52,9 +34,6 @@ jobs:
         registry: ghcr.io
         username: ${{ github.actor }}
         password: ${{ secrets.GITHUB_TOKEN }}
-        
-    - name: Build Docker image
-      run: docker build -t ghcr.io/${{ github.repository_owner }}/nvim-dev:latest .
-  
     - name: Push Docker image
-      run: docker push ghcr.io/${{ github.repository_owner }}/nvim-dev:latest
+
+      run: docker push ghcr.io/${{ github.repository_owner }}/dev:latest

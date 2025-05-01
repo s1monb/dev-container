@@ -1,35 +1,35 @@
 .PHONY: build
 build:
-	@docker build --tag nvim-dev-base:latest .
+	@echo "Building image..."
+	@docker build --tag dc-base:latest .
 
 .PHONY: start-dev
 start-dev:
-	@docker run -dit --name nvim-dev nvim-dev-base:latest
+	@echo "Start base image"
+	@docker run -dit --name dc-base dc-base:latest
 
 .PHONY: run-init-script
 run-init-script:
-	@docker exec -it nvim-dev /scripts/initialize-tooling.sh
+	@echo "Run init-script to install dependencies"
+	@docker exec -it dc-base /scripts/initialize-tooling.sh
 
 .PHONY: commit-dev
 commit-dev:
-	@docker commit nvim-dev nvim-dev-final:latest
+	@echo "Commit the image"
+	@docker commit dc-base dc:latest
 
 .PHONY: cleanup-dev
 cleanup-dev:
-	@docker rm -f nvim-dev
-
-.PHONY: run-final
-run-final:
-	@docker run -it --rm --network none --name nvim-dev-final nvim-dev-final:latest /scripts/entrypoint.sh
+	@docker rm -f dc-base
 
 .PHONY: create-final
-create-final: build start-dev run-init-script commit-dev cleanup-dev run-final 
+create-final: build start-dev run-init-script commit-dev cleanup-dev 
 
 .PHONY: shell
 shell:
-	@docker exec -it nvim-dev-final /scripts/entrypoint.sh
+	@sudo docker run --network none -it -v ./:/home/ubuntu/dev --rm -e PUID=1000 -e PGID=1000 --name dc dc /scripts/entrypoint.sh
 
 .PHONY: cleanup
 cleanup:
-	@docker rm -f nvim-dev
-	@docker rm -f nvim-dev-final
+	@docker rm -f dc
+	@docker rm -f dc-base

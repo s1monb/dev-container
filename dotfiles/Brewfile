@@ -2,6 +2,7 @@ brew "nvim"
 brew "tmux"
 
 # Tooling
+brew "luarocks"
 brew "lazygit"
 brew "jq"
 
@@ -23,3 +24,5 @@ brew "npm"
 brew "pnpm"
 brew "typescript"
 brew "typescript-language-server"
+brew "python3"
+brew "pip3"

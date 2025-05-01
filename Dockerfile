@@ -1,39 +1,35 @@
-FROM ubuntu:24.04
+FROM ubuntu:25.04
 
-
-
+# Install dependencies
 RUN apt-get update && \
-    apt-get install build-essential curl file git ruby-full tmux gcc wget unzip make ripgrep fish locales --no-install-recommends -y && \
-    rm -rf /var/lib/apt/lists/*
+    apt-get install build-essential curl file git ruby-full tmux gcc wget unzip make ripgrep fish fd-find fzf --no-install-recommends -y
 
-RUN localedef -i en_US -f UTF-8 en_US.UTF-8
-RUN useradd -g 1000 -ms /bin/bash simon && \
-    useradd -m -s /bin/bash linuxbrew && \
-    echo 'linuxbrew ALL=(ALL) NOPASSWD:ALL' >>/etc/sudoers && \
-    echo 'simon ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
-
-# Install neovim
-RUN curl -LO https://github.com/neovim/neovim/releases/latest/download/nvim-linux-x86_64.tar.gz && \
-    rm -rf /opt/nvim && \
-    tar -C /opt -xzf nvim-linux-x86_64.tar.gz && \
-    mv /opt/nvim-linux-x86_64 /opt/nvim
+# Create linuxbrew user and add to sudoers
+RUN groupadd -g 2000 linuxbrew && useradd -u 2000 -g linuxbrew -m -s /bin/bash linuxbrew && \
+    echo 'linuxbrew ALL=(ALL) NOPASSWD:ALL' >>/etc/sudoers
 
 USER linuxbrew
-RUN sh -c "$(curl -fsSL https://raw.githubusercontent.com/Linuxbrew/install/master/install.sh)"
+COPY ./dotfiles/Brewfile /home/linuxbrew/Brewfile
+
+# Install Homebrew and all packages specified in Brewfile (dotfiles/Brewfile)
+RUN bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)" && \
+    /home/linuxbrew/.linuxbrew/bin/brew bundle --file=/home/linuxbrew/Brewfile
 
 USER root
-RUN chown -R simon /home/linuxbrew
 
-USER simon
-WORKDIR /home/simon
+# Give ubuntu user access to all linuxbrew stuff
+RUN chown -R ubuntu:ubuntu /home/linuxbrew
 
-RUN mkdir -p ~/.dotfiles
-COPY --chown=simon:simon ./dotfiles /home/simon/.dotfiles
+WORKDIR /home/ubuntu
+COPY --chown=ubuntu:ubuntu ./dotfiles .config
 
 COPY ./scripts /scripts
 
-ENV PATH="/opt/nvim/bin:${PATH}"
-ENV XDG_CONFIG_HOME="/home/simon/.dotfiles"
+# root user will install/download online dependencies (see scripts/initialize-tooling.sh)
+# and we want them to be available to the ubuntu user
+ENV XDG_CONFIG_HOME=/home/ubuntu/.config
+ENV XDG_DATA_HOME=/home/ubuntu/.local/share
+ENV XDG_CACHE_HOME=/home/ubuntu/.cache
+ENV XDG_STATE_HOME=/home/ubuntu/.local/state
 
-CMD ["fish"]
-
+RUN bash /scripts/initialize-tooling.sh
