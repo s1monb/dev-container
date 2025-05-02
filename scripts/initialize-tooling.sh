@@ -1,4 +1,4 @@
-#!/bin/fish
+#!/bin/bash
 
 # Install all nvim dependencies to ubuntu's home directory as root
 nvim --headless -c 'Lazy! sync' -c 'MasonInstall typescript-language-server' -c 'qa!'

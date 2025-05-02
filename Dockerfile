@@ -31,5 +31,3 @@ ENV XDG_CONFIG_HOME=/home/ubuntu/.config
 ENV XDG_DATA_HOME=/home/ubuntu/.local/share
 ENV XDG_CACHE_HOME=/home/ubuntu/.cache
 ENV XDG_STATE_HOME=/home/ubuntu/.local/state
-
-RUN bash /scripts/initialize-tooling.sh
