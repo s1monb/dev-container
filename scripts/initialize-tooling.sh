@@ -5,5 +5,6 @@ nvim --headless -c 'Lazy! sync' -c 'MasonInstall typescript-language-server' -c 
 
 # Change ownership of the home directory to ubuntu (for the nvim dependencies)
 chown -R ubuntu:ubuntu /home/ubuntu
+chmod -R 770 /home/ubuntu
 
 rm -rf /home/ubuntu/.cache /home/linuxbrew/.cache

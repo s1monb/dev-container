@@ -12,8 +12,9 @@ USER linuxbrew
 COPY ./dotfiles/Brewfile /home/linuxbrew/Brewfile
 
 # Install Homebrew and all packages specified in Brewfile (dotfiles/Brewfile)
-RUN bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)" && \
-    /home/linuxbrew/.linuxbrew/bin/brew bundle --file=/home/linuxbrew/Brewfile
+RUN bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
+RUN /home/linuxbrew/.linuxbrew/bin/brew bundle --file=/home/linuxbrew/Brewfile
+RUN /home/linuxbrew/.linuxbrew/bin/brew cleanup
 
 USER root
 

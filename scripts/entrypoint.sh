@@ -6,21 +6,16 @@
 # The default values are set to 1000, which is the default UID and GID for the first user (ubuntu).
 export USERNAME="ubuntu"
 export XDG_CONFIG_HOME="/home/ubuntu/.config"
+export XDG_DATA_HOME="/home/ubuntu/.local/share"
+export XDG_CACHE_HOME="/home/ubuntu/.cache"
+export XDG_STATE_HOME="/home/ubuntu/.local/state"
 
 # If you are running this script as a non GUID=1000 user, you need to set the PUID and PGID environment variables
 # TODO: Describe this better
-if !id -u "1000" >/dev/null 2>&1; then
-    if id -u "$PUID" >/dev/null 2>&1; then
-        exit
-    fi
-    useradd -u "$PUID" -m -s /bin/fish dev
+if [ "$PUID" != "1000" ]; then
     groupadd -g "$PGID" devgroup
-    echo "User with UID $PUID and GID $PGID created"
-    cp -r /home/ubuntu/* /home/dev/
-    chown -R dev:devgroup /home/dev
-    chown -R dev:devgroup /home/linuxbrew
-
-    export XDG_CONFIG_HOME="/home/dev/.config"
+    useradd -u "$PUID" -g "$PGID" -m -s /bin/fish dev
+    usermod -a -G ubuntu dev
     export USERNAME="dev"
 fi
 

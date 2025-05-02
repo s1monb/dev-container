@@ -1,17 +1,16 @@
 .PHONY: build
 build:
 	@echo "Building image..."
-	@docker build --tag dc-base:latest .
+	@docker build --network host --tag dc-base:latest .
 
 .PHONY: start-dev
 start-dev:
 	@echo "Start base image"
-	@docker run -dit --name dc-base dc-base:latest
+	@docker run --network host -dit --name dc-base dc-base:latest
 
 .PHONY: run-init-script
 run-init-script:
-	@echo "Run init-script to install dependencies"
-	@docker exec -it -t dc-base /scripts/initialize-tooling.sh
+	@docker exec -it dc-base /scripts/initialize-tooling.sh
 
 .PHONY: commit-dev
 commit-dev:
@@ -27,9 +26,13 @@ create-final: build start-dev run-init-script commit-dev cleanup-dev
 
 .PHONY: shell
 shell:
-	@sudo docker run --network none -it -v ./:/home/ubuntu/dev --rm -e PUID=1000 -e PGID=1000 --name dc dc /scripts/entrypoint.sh
+	@sudo docker run --network none -it -v ./:/home/dev/dev -w /home/dev/dev --rm -e PUID=622838456 -e PGID=622800513 --name dc dc /scripts/entrypoint.sh
 
 .PHONY: cleanup
 cleanup:
 	@docker rm -f dc
 	@docker rm -f dc-base
+
+.PHONY: rm-images
+rm-images:
+	@docker image rm -q dc-base:latest dc:latest
