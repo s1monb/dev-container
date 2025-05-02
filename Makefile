@@ -11,7 +11,7 @@ start-dev:
 .PHONY: run-init-script
 run-init-script:
 	@echo "Run init-script to install dependencies"
-	@docker exec -it dc-base /scripts/initialize-tooling.sh
+	@docker exec -it -t dc-base /scripts/initialize-tooling.sh
 
 .PHONY: commit-dev
 commit-dev:
