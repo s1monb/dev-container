@@ -29,6 +29,10 @@ cleanup:
 	@docker rm -f dc
 	@docker rm -f dc-base
 
+.PHONY: shell-ghcr
+shell-ghcr:
+	@sudo docker run --network none -it -v ./:/home/dev/dev -w /home/dev/dev --rm -e PUID=$$(id -u) -e PGID=$$(id -g) --name dc ghcr.io/s1monb/dev:latest /scripts/entrypoint.sh
+
 .PHONY: rm-images
 rm-images:
 	@docker image rm -q dc-base:latest dc:latest
