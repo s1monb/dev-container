@@ -5,6 +5,7 @@ brew "tmux"
 brew "luarocks"
 brew "lazygit"
 brew "jq"
+brew "direnv"
 
 # Kubernetes
 brew "k9s"
@@ -17,6 +18,8 @@ brew "kubectl"
 # GO
 brew "golang"
 brew "gopls"
+tap "silenceper/tap"
+brew "gowatch"
 
 # JavaScript/TypeScript
 brew "nodejs"
