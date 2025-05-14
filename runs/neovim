@@ -1,0 +1,21 @@
+#! /usr/bin/env bash
+
+# essentials
+sudo apt install git make unzip gcc
+
+# ripgrep
+curl -LO https://github.com/BurntSushi/ripgrep/releases/download/14.1.0/ripgrep_14.1.0-1_amd64.deb
+sudo dpkg -i ripgrep_14.1.0-1_amd64.deb
+
+# fd-find
+sudo apt install fd-find
+
+# emoji-support
+sudo apt install fonts-noto-color-emoji
+
+# neovim
+curl -LO https://github.com/neovim/neovim/releases/latest/download/nvim-linux-x86_64.tar.gz
+sudo rm -rf /opt/nvim
+sudo tar -C /opt -xzf nvim-linux-x86_64.tar.gz
+ln -s /opt/nvim /opt/nvim-liunux-x86_64
+
