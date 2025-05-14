@@ -65,3 +65,4 @@ update_files $DEV_ENV/env/.config $XDG_CONFIG_HOME
 
 copy $DEV_ENV/dev-env $HOME/.local/scripts/dev-env
 copy $DEV_ENV/tar-it $HOME/.local/scripts/tar-it
+copy $DEV_ENV/untar-it $HOME/.local/scripts/untar-it
