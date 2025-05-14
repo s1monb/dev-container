@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+
+if ! test -f ~/compiled.tar.gz; then
+  echo "File does not exist."
+  exit 1
+fi
+
+rm -rf ~/.compiled 
+mkdir ~/.compiled 
+
+# removes /home/simon/compile-it parent-dirs
+tar -xzf ~/compiled.tar.gz -C ~/.compiled --strip-components=3
