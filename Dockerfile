@@ -9,7 +9,7 @@ RUN groupadd -g 2000 linuxbrew && useradd -u 2000 -g linuxbrew -m -s /bin/bash l
     echo 'linuxbrew ALL=(ALL) NOPASSWD:ALL' >>/etc/sudoers
 
 USER linuxbrew
-COPY ./dotfiles/Brewfile /home/linuxbrew/Brewfile
+COPY ./env/.config/Brewfile /home/linuxbrew/Brewfile
 
 # Install Homebrew and all packages specified in Brewfile (dotfiles/Brewfile)
 RUN bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
@@ -22,7 +22,7 @@ USER root
 RUN chown -R ubuntu:ubuntu /home/linuxbrew
 
 WORKDIR /home/ubuntu
-COPY --chown=ubuntu:ubuntu ./dotfiles .config
+COPY --chown=ubuntu:ubuntu ./env/.config .config
 
 COPY ./scripts /scripts
 

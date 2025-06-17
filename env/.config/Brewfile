@@ -6,6 +6,7 @@ brew "luarocks"
 brew "lazygit"
 brew "jq"
 brew "direnv"
+brew "nushell"
 
 # Kubernetes
 brew "k9s"
@@ -20,6 +21,7 @@ brew "golang"
 brew "gopls"
 tap "silenceper/tap"
 brew "gowatch"
+brew "delve"
 
 # JavaScript/TypeScript
 brew "nodejs"

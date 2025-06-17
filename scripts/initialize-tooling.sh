@@ -1,7 +1,7 @@
 #!/bin/fish
 
 # Install all nvim dependencies to ubuntu's home directory as root
-nvim --headless -c 'Lazy! sync' -c 'MasonInstall typescript-language-server' -c 'qa!'
+nvim --headless -c 'Lazy! sync' -c 'MasonInstall typescript-language-server gopls stylua' -c 'TSInstallSync go lua typescript' -c 'qa!'
 
 # Change ownership of the home directory to ubuntu (for the nvim dependencies)
 chown -R ubuntu:ubuntu /home/ubuntu

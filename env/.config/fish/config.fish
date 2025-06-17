@@ -3,7 +3,7 @@
 #  Author: [Dmitry](http://dmi3.net) [Source](https://github.com/dmi3/fish)
 
 export GOPATH="$HOME/go"
-export PATH="$PATH:$GOPATH/bin:/usr/local/go/bin:$HOME/.cargo/bin:$HOME/.local/scripts:/opt/nvim/bin"
+export PATH="$PATH:$GOPATH/bin:/usr/local/go/bin:$HOME/.cargo/bin:$HOME/.local/scripts:/opt/nvim/bin:/home/linuxbrew/.linuxbrew/bin"
 
 # DIRENV
 function __direnv_export_eval --on-event fish_prompt
