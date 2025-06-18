@@ -12,6 +12,7 @@ brew "go-task"
 # Kubernetes
 brew "k9s"
 brew "kubectl"
+brew "talosctl"
 
 ###########################
 #  Programming languages  #
