@@ -19,10 +19,3 @@ map("n", "<S-l>", "<cmd>bnext<cr>", { desc = "Next Buffer" })
 map("n", "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>", { silent = true })
 map("n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", { silent = true })
 map("n", "gi", "<cmd>lua vim.lsp.buf.implementation()<CR>", { silent = true })
-
--- Windows
-
-map('n', '<C-w>z', "<cmd>WindowsMaximize<cr>")
-map('n', '<C-w>_', "<cmd>WindowsMaximizeVertically<cr>")
-map('n', '<C-w>|', "<cmd>WindowsMaximizeHorizontally<cr>")
-map('n', '<C-w>=', "<cmd>WindowsEqualize<cr>")

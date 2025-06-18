@@ -23,10 +23,11 @@ if [ "$PUID" != "1000" ]; then
     export XDG_CACHE_HOME="/home/dev/.cache"
     export XDG_STATE_HOME="/home/dev/.local/state"
 
-    mv /home/ubuntu/.local /home/dev/
-    mv /home/ubuntu/.config /home/dev/
-    mv /home/ubuntu/.cache /home/dev/
-    chown -R dev:devgroup /home/dev 
+    ln -s /home/ubuntu/.local /home/dev/.local
+    ln -s /home/ubuntu/.config /home/dev/.config
+    # ln -s  /home/ubuntu/.cache /home/dev/.cache
+    chown -R dev:devgroup /home/dev
+    chown -R dev:devgroup /home/ubuntu 
     
     export USERNAME="dev"
 fi
