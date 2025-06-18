@@ -2,7 +2,7 @@ FROM ubuntu:25.04
 
 # Install dependencies
 RUN apt-get update && \
-    apt-get install build-essential curl file git ruby-full tmux gcc wget unzip make ripgrep fish fd-find fzf --no-install-recommends -y
+    apt-get install build-essential curl file git ruby-full tmux gcc wget ssh unzip make ripgrep fish fd-find fzf openssh-server --no-install-recommends -y
 
 # Create linuxbrew user and add to sudoers
 RUN groupadd -g 2000 linuxbrew && useradd -u 2000 -g linuxbrew -m -s /bin/bash linuxbrew && \
