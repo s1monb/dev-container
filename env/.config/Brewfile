@@ -8,11 +8,13 @@ brew "jq"
 brew "direnv"
 brew "nushell"
 brew "go-task"
+brew "terragrunt"
 
 # Kubernetes
 brew "k9s"
 brew "kubectl"
 brew "talosctl"
+brew "helm"
 
 ###########################
 #  Programming languages  #
