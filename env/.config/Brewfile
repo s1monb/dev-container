@@ -15,6 +15,7 @@ brew "k9s"
 brew "kubectl"
 brew "talosctl"
 brew "helm"
+brew "cilium-cli"
 
 ###########################
 #  Programming languages  #
