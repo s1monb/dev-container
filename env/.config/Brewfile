@@ -7,6 +7,7 @@ brew "lazygit"
 brew "jq"
 brew "direnv"
 brew "nushell"
+brew "go-task"
 
 # Kubernetes
 brew "k9s"
@@ -30,3 +31,6 @@ brew "pnpm"
 brew "typescript"
 brew "typescript-language-server"
 brew "python3"
+
+# Lua
+brew "lua-language-server"
