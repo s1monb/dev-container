@@ -28,6 +28,7 @@ brew "gopls"
 tap "silenceper/tap"
 brew "gowatch"
 brew "delve"
+brew "golangci-lint"
 
 # JavaScript/TypeScript
 brew "nodejs"

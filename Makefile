@@ -35,4 +35,10 @@ shell-ghcr:
 
 .PHONY: rm-images
 rm-images:
-	@docker image rm -q dc-base:latest dc:latest
+	@docker images -q | xargs -I {} docker image rm {}
+
+.PHONY: save-final-ghcr
+save-final-ghcr:
+	@docker pull ghcr.io/s1monb/dev:latest
+	@docker image save -o ghcr-io-s1monb-dev ghcr.io/s1monb/dev:latest
+	@gzip ghcr-io-s1monb-dev
