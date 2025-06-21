@@ -10,26 +10,25 @@ export XDG_DATA_HOME="/home/ubuntu/.local/share"
 export XDG_CACHE_HOME="/home/ubuntu/.cache"
 export XDG_STATE_HOME="/home/ubuntu/.local/state"
 
-# If you are running this script as a non GUID=1000 user, you need to set the PUID and PGID environment variables
+# If you are running this script as a non GUID=1000 (ubuntu-user) user, you need to set the PUID and PGID environment variables
 # TODO: Describe this better
-if [ "$PUID" != "1000" ]; then
-    
-    groupadd -g "$PGID" devgroup
-    useradd -u "$PUID" -g "$PGID" -m -s /bin/fish dev
-    usermod -a -G ubuntu dev
-    
+if [ "$PUID" != "1000" ]; then    
     export XDG_CONFIG_HOME="/home/dev/.config"
     export XDG_DATA_HOME="/home/dev/.local/share"
     export XDG_CACHE_HOME="/home/dev/.cache"
     export XDG_STATE_HOME="/home/dev/.local/state"
+    export USERNAME="dev"
+
+    groupadd -g "$PGID" devgroup
+    useradd -u "$PUID" -g "$PGID" -m -s /bin/fish dev
+    usermod -a -G ubuntu dev
+    
 
     ln -s /home/ubuntu/.local /home/dev/.local
     ln -s /home/ubuntu/.config /home/dev/.config
-    # ln -s  /home/ubuntu/.cache /home/dev/.cache
     chown -R dev:devgroup /home/dev
     chown -R dev:devgroup /home/ubuntu 
     
-    export USERNAME="dev"
 fi
 
 # CAUTION: If you change this line, make sure to not break the window 

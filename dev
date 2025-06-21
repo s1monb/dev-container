@@ -12,4 +12,12 @@ fi
 
 selected_name=$(basename "$selected" | tr . _)
 
-sudo docker run --network host -it -v $selected:/dev_env/$selected_name -w /dev_env/$selected_name -v ~/.ssh:/home/dev/.ssh -v ~/.ssh:/home/ubuntu/.ssh -v ~/.gitconfig:/home/dev/.gitconfig -v ~/.gitconfig:/home/ubuntu/.gitconfig --rm -e PUID=$(id -u) -e PGID=$(id -g) ghcr.io/s1monb/dev:latest /scripts/entrypoint.sh
+sudo docker run --network host -it --rm \
+	-e PUID=$(id -u) -e PGID=$(id -g) \
+	-w /dev_env/$selected_name \
+	-v $selected:/dev_env/$selected_name \
+	-v ~/.ssh:/home/dev/.ssh \
+	-v ~/.ssh:/home/ubuntu/.ssh \
+	-v ~/.gitconfig:/home/dev/.gitconfig \
+	-v ~/.gitconfig:/home/ubuntu/.gitconfig \
+	ghcr.io/s1monb/dev:latest /scripts/entrypoint.sh
