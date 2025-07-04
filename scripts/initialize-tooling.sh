@@ -17,7 +17,7 @@ nvim --headless -c 'MasonInstall deno eslint_d typescript-language-server ts-sta
 nvim --headless -c 'TSInstallSync all' -cq
 
 # Change ownership of the home directory to ubuntu (for the nvim dependencies)
-chown -R ubuntu:ubuntu /home/ubuntu
-chmod -R 770 /home/ubuntu
+chown -R dev:dev /home/dev
+chmod -R 770 /home/dev
 
-rm -rf /home/ubuntu/.cache /home/linuxbrew/.cache
+rm -rf /home/dev/.cache /home/linuxbrew/.cache

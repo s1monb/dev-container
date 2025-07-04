@@ -10,6 +10,7 @@ brew "direnv"
 brew "nushell"
 brew "go-task"
 brew "terragrunt"
+brew "bat"
 
 # Kubernetes
 brew "k9s"

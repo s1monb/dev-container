@@ -1,0 +1,25 @@
+version: "3"
+
+env:
+  USER_ID: { sh: "echo ${USER_ID:-$(id -u)}" }
+  GROUP_ID: { sh: "echo ${GROUP_ID:-$(id -g)}"}
+
+tasks:
+  rm-images:
+    cmds:
+      - docker image rm dc-base dc --force || true
+  build-image:
+    desc: Full build and container workflow with USER_ID input
+    cmds:
+      - echo "Building image for user with uid=$USER_ID..."
+      - docker build --build-arg USER_ID=$USER_ID --build-arg GROUP_ID=$GROUP_ID --network host --tag devbox-base-$USER_ID-$GROUP_ID:latest .
+      - echo "Start base image"
+      - docker run --network host -i --name devbox-base-$USER_ID-$GROUP_ID devbox-base-$USER_ID-$GROUP_ID:latest /scripts/initialize-tooling.sh
+      - echo "Commit the image"
+      - docker commit devbox-base-$USER_ID-$GROUP_ID devbox-$USER_ID-$GROUP_ID:latest
+      - docker rm -f devbox-base-$USER_ID-$GROUP_ID || true
+
+  shell:
+    desc: Start dev shell with local image
+    cmds:
+      - sudo docker run --network none -it -v ./:/home/dev/$(basename $(pwd)) -w /home/dev/$(basename $(pwd)) --rm -e PUID=$(id -u) -e PGID=$(id -g) --name devbox-$USER_ID-$GROUP_ID devbox-$USER_ID-$GROUP_ID:latest /scripts/entrypoint.sh
