@@ -11,6 +11,7 @@ brew "nushell"
 brew "go-task"
 brew "terragrunt"
 brew "bat"
+brew "gh"
 
 # Kubernetes
 brew "k9s"
