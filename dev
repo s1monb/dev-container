@@ -18,8 +18,11 @@ sudo docker run --network host -it --rm \
 	-v $selected:/home/dev/$selected_name \
 	-v ~/.ssh:/home/dev/.ssh \
 	-v ~/.gitconfig:/home/dev/.gitconfig \
-	--env DISPLAY=$DISPLAY \
-	--env XDG_RUNTIME_DIR=$XDG_RUNTIME_DIR \
-	--volume /tmp/.X11-unix:/tmp/.X11-unix \
-	--volume $XDG_RUNTIME_DIR:$XDG_RUNTIME_DIR \
+	-v ~/.claude:/home/dev/.claude \
+	-v ~/.claude.json:/home/dev/.claude.json \
+	-e DISPLAY=$DISPLAY \
+    	-v /tmp/.X11-unix:/tmp/.X11-unix:rw \
+	-v $HOME/.Xauthority:/root/.Xauthority:rw \
+	--ipc host \
+	--device /dev/dri \
 	devbox-$(id -u)-$(id -g):latest /scripts/entrypoint.sh

@@ -37,7 +37,13 @@ brew "nodejs"
 brew "pnpm"
 brew "typescript"
 brew "typescript-language-server"
+
+# python
 brew "python3"
 
 # Lua
 brew "lua-language-server"
+
+# rust
+brew "rustup"
+brew "rust"
