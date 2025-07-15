@@ -32,8 +32,8 @@ brew "delve"
 brew "golangci-lint"
 
 # JavaScript/TypeScript
+brew "nvm"
 brew "nodejs"
-brew "npm"
 brew "pnpm"
 brew "typescript"
 brew "typescript-language-server"

@@ -9,6 +9,12 @@ RUN userdel -r ubuntu
 RUN apt-get update && \
     apt-get install build-essential curl file git ruby-full tmux gcc wget ssh unzip make ripgrep fish fd-find fzf openssh-server --no-install-recommends -y
 
+RUN apt-get install libwebkit2gtk-4.1-dev \
+  libxdo-dev \
+  libssl-dev \
+  libayatana-appindicator3-dev \
+  librsvg2-dev --no-install-recommends -y
+
 # Create linuxbrew user and add to sudoers
 RUN groupadd -g 2000 linuxbrew && useradd -u 2000 -g linuxbrew -m -s /bin/bash linuxbrew && \
     echo 'linuxbrew ALL=(ALL) NOPASSWD:ALL' >>/etc/sudoers
@@ -39,3 +45,12 @@ ENV XDG_CONFIG_HOME=/home/dev/.config
 ENV XDG_DATA_HOME=/home/dev/.local/share
 ENV XDG_CACHE_HOME=/home/dev/.cache
 ENV XDG_STATE_HOME=/home/dev/.local/state
+
+USER dev
+
+RUN curl https://sh.rustup.rs -sSf | \
+    sh -s -- --default-toolchain stable -y && \
+    /home/dev/.cargo/bin/rustup update beta && \
+    /home/dev/.cargo/bin/rustup update nightly
+
+USER root

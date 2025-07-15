@@ -16,8 +16,12 @@ nvim --headless -c 'MasonInstall deno eslint_d typescript-language-server ts-sta
 
 nvim --headless -c 'TSInstallSync all' -cq
 
+echo "Done with nvim setup"
+
 # Change ownership of the home directory to ubuntu (for the nvim dependencies)
 chown -R dev:dev /home/dev
 chmod -R 770 /home/dev
+
+npm install -g @anthropic-ai/claude-code
 
 rm -rf /home/dev/.cache /home/linuxbrew/.cache
