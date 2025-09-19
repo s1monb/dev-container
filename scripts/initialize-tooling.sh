@@ -22,6 +22,6 @@ echo "Done with nvim setup"
 chown -R dev:dev /home/dev
 chmod -R 770 /home/dev
 
-npm install -g @anthropic-ai/claude-code
+npm install -g @anthropic-ai/claude-code markdownlint-cli2
 
 rm -rf /home/dev/.cache /home/linuxbrew/.cache
